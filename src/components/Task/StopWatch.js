@@ -49,6 +49,11 @@ function StopWatch({ classes }) {
             });
             clearInterval(interval)
         } else {
+            setTimer({ 
+                isRunning: true,
+                seconds: timer.seconds += 1,
+                text: getTimerText()
+            });
             interval = setInterval(() => {
                 setTimer({ 
                     isRunning: true,
