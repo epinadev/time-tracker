@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,7 +11,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import SideBar from './SideBar';
 import Header from './Header';
 import NewTaskArea from './NewTaskArea';
-import TaskList from './TaskList';
+import Agenda from './Agenda';
 import { TaskProvider } from '../store/TaskContext';
 
 const drawerWidth = 240;
@@ -93,7 +93,7 @@ function Dashboard(props) {
           <Divider />
         </Drawer>
         <Grid container className={classes.content}>
-          <TaskList/>
+          <Agenda/>
           <NewTaskArea/>
         </Grid>
       </div>

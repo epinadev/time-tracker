@@ -11,14 +11,6 @@ function NewTaskForm({classes}) {
 
     return(
         <React.Fragment>
-            <Input
-                placeholder="Add a decription"
-                className={classes.input}
-                inputProps={{
-                'aria-label': 'Add a description',
-                }}
-            />
-            
         </React.Fragment>
     )
 }

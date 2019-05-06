@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import StopWatch from './StopWatch';
-import { TaskContext } from '../store/TaskContext';
 import NewTaskForm from './NewTaskForm';
 
 const styles = theme => ({
@@ -14,15 +13,10 @@ const styles = theme => ({
 function NewTaskArea({ classes }) {
 
     return(
-        <TaskContext.Consumer>
-            {({ addTask })=> (
-                <Grid item xs={4} className={classes.content}>
-                    <StopWatch addTask={addTask}/>
-                    <NewTaskForm/>
-                </Grid>
-            )}
-        </TaskContext.Consumer>
-
+        <Grid item xs={3} className={classes.content}>
+            <StopWatch/>
+            <NewTaskForm/>
+        </Grid>
     ) 
 }
 
