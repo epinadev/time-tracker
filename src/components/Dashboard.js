@@ -9,7 +9,6 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import SideBar from './SideBar';
-import Header from './Header';
 import NewTaskArea from './NewTaskArea';
 import Agenda from './Agenda';
 import { TaskProvider } from '../store/TaskContext';
@@ -36,6 +35,7 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
   },
   drawerPaperClose: {
+    backgroundColor: '#333358',
     overflowX: 'hidden',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -50,8 +50,6 @@ const styles = theme => ({
     display: 'flex',
     width: '100%',
     flexGrow: 1,
-    marginTop: 40,
-    paddingTop: theme.spacing.unit * 3,
     height: '100vh',
     overflow: 'auto',
   },
@@ -72,7 +70,7 @@ function Dashboard(props) {
     <TaskProvider>
       <div className={classes.root}>
         <CssBaseline />
-        <Header open={open} handleDrawerOpen={handleDrawerOpen} />
+        {/* <Header open={open} handleDrawerOpen={handleDrawerOpen} /> */}
         <Drawer
           variant="permanent"
           open={open}

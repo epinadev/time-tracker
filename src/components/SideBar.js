@@ -7,40 +7,48 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import {  withStyles } from "@material-ui/core/styles";
 
-function SideBar () {
+const styles = theme => ({
+    icon: {
+        color: '#CCC'
+    }
+})
+
+function SideBar (props) {
+    const { classes } = props;
     return(
         <div>
             <ListItem button>
-                <ListItemIcon>
+                <ListItemIcon className={classes.icon}>
                     <DashboardIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
             </ListItem>
 
             <ListItem button>
-                <ListItemIcon>
+                <ListItemIcon className={classes.icon}>
                     <AssignmentIcon/>
                 </ListItemIcon>
                 <ListItemText primary="Orders" />
             </ListItem>
 
             <ListItem button>
-                <ListItemIcon>
+                <ListItemIcon className={classes.icon}>
                     <PeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Customers" />
             </ListItem>
 
             <ListItem button>
-                <ListItemIcon>
+                <ListItemIcon className={classes.icon}>
                     <BarChartIcon />
                 </ListItemIcon>
                 <ListItemText primary="Reports" />
             </ListItem>
 
             <ListItem button>
-                <ListItemIcon>
+                <ListItemIcon className={classes.icon}>
                     <LayersIcon />
                 </ListItemIcon>
                 <ListItemText primary="Integrations" />
@@ -49,4 +57,4 @@ function SideBar () {
     )
 }
 
-export default SideBar;
+export default withStyles(styles)(SideBar);

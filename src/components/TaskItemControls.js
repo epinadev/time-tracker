@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PlayArrow from "@material-ui/icons/PlayArrow";
 import IconButton from '@material-ui/core/IconButton';
-import Edit from "@material-ui/icons/Edit";
-import Delete from "@material-ui/icons/Delete";
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import Stop from "@material-ui/icons/Stop";
 import { TaskContext } from "../store/TaskContext";
-import { DialogContext } from "../store/DialogContext";
 import Update from "@material-ui/icons/Update";
 
 const styles = theme => ({
@@ -14,23 +14,39 @@ const styles = theme => ({
         color: '#b9b8b8',
         display: 'flex',
         alignItems: 'center',
-        justifyItems: 'space-between'
+        justifyItems: 'space-between',
+        width: 200
     },
-    icon: {
-        fontSize: 20,
-        cursor: 'pointer'
-    }
+    duration: {
+        color: '#b9b8b8',
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: 16
+    },
 })
 
 function TaskItemControls(props) {
     const { task, classes } = props;
-    const { deleteTask, startRunningTask, reStartTask } = useContext(TaskContext);
-    const { setDialog } = useContext(DialogContext);
-    const handleDelete = () => deleteTask(task);
-    const handleReStart = () => reStartTask(task)
-    const handleEdit = () => setDialog({ open: true, title: 'Edit task', taskId: task.id })
-    const handleStart = () => startRunningTask(task)
-    const handleStop = () => {};
+    const { 
+        deleteTask, 
+        duplicateTask, 
+        startRunningTask, 
+        stopRunningTask } = useContext(TaskContext);
+    const [ menuAnchor, setMenu ] = useState(null);
+    const handleMenu = e => setMenu(e.currentTarget);
+    const handleClose  = () => setMenu(null);
+    const handleReStart = () => duplicateTask(task.id);
+    const handleStart = () => startRunningTask(task);
+    const handleStop = () => stopRunningTask();
+    const handleDelete = () => {
+        deleteTask(task);
+        setMenu(null);
+    } 
+    const formatDuration = () => {
+        return task.hours === '00' && task.mins === '00' && task.secs === '00' 
+                ? 'Pending' 
+                : `${task.hours}:${task.mins}:${task.secs}`;
+    }
     const getActionButton = () => {
         switch (task.state) {
             case 'non-started':
@@ -60,17 +76,25 @@ function TaskItemControls(props) {
 
     return(
         <div className={classes.controls}>
+            <div className={classes.duration}>
+                {formatDuration()}
+            </div>
             {getActionButton()}
             <IconButton className={classes.button} 
-                        onClick={handleEdit} 
-                        aria-label="Edit">
-                <Edit className={classes.icon}/>
-            </IconButton>
-            <IconButton className={classes.button} 
-                        onClick={handleDelete} 
+                        aria-owns={menuAnchor ? 'task-menu' : undefined}
+                        aria-haspopup="true"
+                        onClick={handleMenu} 
                         aria-label="Delete">
-                <Delete className={classes.icon}/>
+                <MoreVertIcon className={classes.icon}/>
             </IconButton>
+            <Menu
+                id="task-menu"
+                anchorEl={menuAnchor}
+                open={Boolean(menuAnchor)}
+                onClose={handleClose}
+            >
+                <MenuItem onClick={handleDelete}>Delete</MenuItem>
+            </Menu>
         </div>
     ) 
 }

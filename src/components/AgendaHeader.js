@@ -8,7 +8,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
-import { DialogContext } from "../store/DialogContext";
+import { TaskContext } from '../store/TaskContext';
 
 const styles = theme => ({
   root: {
@@ -75,7 +75,7 @@ const styles = theme => ({
 
 function AgendaHeader(props) {
   const { classes } = props;
-  const { setDialog } = useContext(DialogContext);
+  const { addTask } = useContext(TaskContext);
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.root}>
@@ -99,7 +99,7 @@ function AgendaHeader(props) {
             <Fab 
                 size="small" 
                 color="primary" 
-                onClick={ ()=> setDialog({ open: true, title: 'Add new task', taskId: false }) }
+                onClick={ ()=> addTask() }
                 className={classes.fab}>
                     <AddIcon/>
             </Fab>

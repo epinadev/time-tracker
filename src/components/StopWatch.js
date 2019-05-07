@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Stop from '@material-ui/icons/Stop';
 import moment from 'moment';
 import { TaskContext } from '../store/TaskContext';
+import { TaskHelper } from '../store/Settings';
 
-let interval;
 const styles = theme => ({
     timerContainer: {
         display: 'flex',
@@ -27,17 +27,18 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'space-evenly'
     },
-    timerSecs: {
-        fontSize: '6vw',
-        marginTop: '13%',
+    timerTime: {
+        fontSize: '4.5vw',
+        marginTop: '27%',
         fontWeight: 'bold',
         borderBottom: '0.5px solid #dad7d7'
     },
     timerSecsSpan: {
-        fontSize: '3vw',
+        fontSize: '1.6vw',
         color: '#AAA'
     },
-    timerTime: {
+    timerSecs: {
+        fontSize: '3.6vw',
         color: '#76768a'
     },
     timer: {
@@ -55,7 +56,6 @@ const styles = theme => ({
 
 function StopWatch(props) {
     const { 
-        addTask, 
         startRunningTask, 
         stopRunningTask, 
         getRunningTask, 
@@ -64,9 +64,12 @@ function StopWatch(props) {
     const timer = getRunningTask() || getModelTask();
 
     const startTimer = () => {
-        const newTask = {...timer, state: 'running', start: moment().format()}
-        addTask(newTask);
-        startRunningTask(newTask);
+        startRunningTask({
+            ...timer, 
+            state: 'running', 
+            totalSeconds: 0,
+            start: moment().format()
+        });
     }
 
     const stopTimer = mode => {
@@ -78,12 +81,12 @@ function StopWatch(props) {
             <div className={classes.timerContainer}>
                 <div className={classes.timerCircle}>
                     <div className={classes.timer}>
+                        <div className={classes.timerTime}>
+                            {`${timer.hours}:${timer.mins}`}
+                        </div>
                         <div className={classes.timerSecs}>
                             {timer.secs}
                             <span className={classes.timerSecsSpan}>s</span>
-                        </div>
-                        <div className={classes.timerTime}>
-                            {`${timer.hours}:${timer.mins}`}
                         </div>
                     </div> 
                 </div> 
