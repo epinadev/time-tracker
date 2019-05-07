@@ -2,12 +2,12 @@ import React, { useState, useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PlayArrow from "@material-ui/icons/PlayArrow";
 import IconButton from '@material-ui/core/IconButton';
+import Redo from '@material-ui/icons/Redo';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Stop from "@material-ui/icons/Stop";
 import { TaskContext } from "../store/TaskContext";
-import Update from "@material-ui/icons/Update";
 
 const styles = theme => ({
     controls: {
@@ -61,7 +61,7 @@ function TaskItemControls(props) {
                 <IconButton className={classes.button} 
                             onClick={handleReStart} 
                             aria-label="Re-start">
-                    <Update className={classes.icon} />
+                    <Redo className={classes.icon} />
                 </IconButton>)
             default:
                     break;
@@ -69,7 +69,7 @@ function TaskItemControls(props) {
         return (
             <IconButton className={classes.button} 
                         onClick={handleStop} 
-                        aria-label="Re-start">
+                        aria-label="Stop">
                 <Stop className={classes.icon} />
             </IconButton>)
     }

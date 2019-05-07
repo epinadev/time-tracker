@@ -27,7 +27,6 @@ export const TaskProvider = props => {
         setTasks(prevTasks => [...prevTasks, ntask])
     } 
     const editTask = task => {
-        console.log('Editing', task)
         setTasks(prevTasks => {
             const index = prevTasks.findIndex(t => t.id === task.id);
             prevTasks[index] = task;
