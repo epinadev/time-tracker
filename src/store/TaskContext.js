@@ -2,11 +2,14 @@ import React,{ useState, createContext, useRef, useEffect } from 'react';
 import {v4} from 'uuid';
 import moment from 'moment';
 
+const storedString = localStorage.getItem('tasks')
+const storedTasks = storedString ? JSON.parse(storedString) : [];
 let interval;
+
 export const TaskContext = createContext();
 export const TaskProvider = props => {
     const intervalRef = useRef();
-    const [ tasks, setTasks ] = useState([]);
+    const [ tasks, setTasks ] = useState(storedTasks);
     const getModelTask = () => ({
         id: v4(),
         state: 'non-started',
@@ -23,13 +26,17 @@ export const TaskProvider = props => {
     const getRunningTask = () => tasks.find(t => t.state === 'running');
     const getTask = id => tasks.find(t => t.id === id);
     const addTask = task => {
-        const ntask = task ? {...task } : getModelTask();
-        setTasks(prevTasks => [...prevTasks, ntask])
+        setTasks(prevTasks => {
+            const ntask = task ? {...task } : getModelTask();
+            localStorage.setItem('tasks', JSON.stringify([...prevTasks, ntask]))
+            return [...prevTasks, ntask]
+        })
     } 
     const editTask = task => {
         setTasks(prevTasks => {
             const index = prevTasks.findIndex(t => t.id === task.id);
             prevTasks[index] = task;
+            localStorage.setItem('tasks', JSON.stringify(prevTasks))
             return [...prevTasks];
         })
     }
@@ -43,7 +50,9 @@ export const TaskProvider = props => {
         })
     }
     const deleteTask = task => {
-        setTasks(tasks.filter(t => t.id !== task.id));
+        let ntasks = tasks.filter(t => t.id !== task.id)
+        setTasks(ntasks);
+        localStorage.setItem('tasks', JSON.stringify(ntasks))
         if(task.state === 'running') {
             clearInterval(interval)
         } 
