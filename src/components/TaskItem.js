@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import TaskItemControls from "./TaskItemControls";
 import Input from '@material-ui/core/Input';
+import { TaskContext } from '../store/TaskContext';
+import _ from 'lodash';
 
 
 const styles = theme => ({
@@ -56,9 +58,19 @@ const styles = theme => ({
 
 function TaskItem(props) {
     const { task, classes } = props;
+    const { editTask } = useContext(TaskContext);
     const startTime = task.start ? moment(task.start).format('HH:mm') : '00:00';
     const stopTime = task.stop ? moment(task.stop).format('HH:mm') : '00:00';
-    const handleCategory = () => {}
+    const debouncedEdit = _.debounce((key, value) => editTask({ ...task, [key]: value }), 1000)
+    const handleCategory = event => {
+        const { value } = event.currentTarget
+        debouncedEdit('category', value);
+    }
+
+    const handleDescription = event => {
+        const { value } = event.currentTarget
+        debouncedEdit('description', value);
+    }
 
     return(
         <div className={classes.item} >
@@ -80,7 +92,7 @@ function TaskItem(props) {
                             'aria-label': 'Description',
                         }}
                     />
-                {task.category}</div>
+                </div>
                 <div className={classes.description}>
                 <Input
                     disableUnderline
@@ -88,7 +100,7 @@ function TaskItem(props) {
                     multiline
                     placeholder="Describe your task here"
                     defaultValue={task.description}
-                    onChange={handleCategory}
+                    onChange={handleDescription}
                     className={classes.inputDescription}
                     inputProps={{
                         'aria-label': 'Description',
