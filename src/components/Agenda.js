@@ -18,8 +18,6 @@ const styles = theme => ({
 function Agenda({ classes }) {
     const { tasks } = useContext(TaskContext);
 
-    console.log(tasks)
-
     return(
         <Grid item xs={9} className={classes.content}>
             <AgendaHeader/>
