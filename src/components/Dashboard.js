@@ -30,8 +30,8 @@ const styles = theme => ({
   toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
+    justifyContent: 'center',
+    marginRight: '8px',
     ...theme.mixins.toolbar,
   },
   drawerPaperClose: {
@@ -79,9 +79,7 @@ function Dashboard(props) {
           }}
         >
           <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
+            <img src="/logo.png" width={50} height={50} alt="Stopwatch icon"/>
           </div>
 
           <Divider />
