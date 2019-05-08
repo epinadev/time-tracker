@@ -14,7 +14,7 @@ const styles = theme => ({
         margin: 7,
         padding:7,
         borderRadius: '10px !important',
-        boxShadow: '0px 3px 5px -1px rgba(0, 0, 0, 0.01), 0px 6px 10px 0px rgba(0, 0, 0, 0), 0px 1px 18px 0px rgba(0, 0, 0, 0.08)',
+        // boxShadow: '0px 3px 5px -1px rgba(0, 0, 0, 0.01), 0px 6px 10px 0px rgba(0, 0, 0, 0), 0px 1px 18px 0px rgba(0, 0, 0, 0.08)',
         '&:before': {
             content: 'unset !important'
         }
@@ -44,7 +44,7 @@ const styles = theme => ({
     divider: {
         borderRadius: 50,
         backgroundColor: 'green',
-        width:5 
+        width:7 
     },
     inputCategory: {
         color: '#aba2a2',
@@ -78,7 +78,7 @@ function TaskItem(props) {
                 <div className={classes.startTime}>{startTime}</div>
                 <div className={classes.stopTime}>{stopTime}</div>
             </div>
-            <div className={classes.divider}></div>
+            <div className={classes.divider} style={{ backgroundColor: task.color }}></div>
             <div className={classes.info}>
                 <div className={classes.category}>
                     <Input

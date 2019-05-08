@@ -5,7 +5,7 @@ import StopWatch from './StopWatch';
 
 const styles = theme => ({
     content : {
-        backgroundColor: '#FFF'
+        backgroundColor: '#f4f3ff',
     },
 })
 

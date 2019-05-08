@@ -18,7 +18,7 @@ const styles = theme => ({
         width: 200
     },
     duration: {
-        color: '#b9b8b8',
+        color: '#6571a0',
         display: 'flex',
         alignItems: 'center',
         fontSize: 16

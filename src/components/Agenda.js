@@ -7,11 +7,17 @@ import { TaskContext } from "../store/TaskContext";
 
 const styles = theme => ({
     content : {
-        backgroundColor: '#f4f3ff'
+        backgroundColor: '#f4f3ff',
+        backgroundColor: '#fff',
+        // background: 'url(https://images.pexels.com/photos/207301/pexels-photo-207301.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)',
+        overflowY: 'hidden'
     },
     agendaHeader: {
         width: '100%',
         display: 'flex'
+    },
+    tasksContainer: {
+        height: '100%'
     }
 })
 
@@ -21,7 +27,11 @@ function Agenda({ classes }) {
     return(
         <Grid item xs={9} className={classes.content}>
             <AgendaHeader/>
-            { tasks.map(task => <TaskItem task={task} key={task.id}/>) }
+            <div className={classes.tasksContainer}>
+                <div>
+                { tasks.map(task => <TaskItem task={task} key={task.id}/>) }
+                </div>
+            </div>
         </Grid>
     ) 
 }

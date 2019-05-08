@@ -14,7 +14,7 @@ const styles = theme => ({
     },
     timerCircle: {
         margin: 23,
-        border: '5px dotted #494463',
+        border: '2.5px solid #494463',
         display: 'flex',
         alignContent: 'center',
         borderRadius: '50%',

@@ -1,5 +1,6 @@
 import React,{ useState, createContext, useRef, useEffect } from 'react';
 import {v4} from 'uuid';
+import { COLORS } from './Settings';
 import moment from 'moment';
 
 const storedString = localStorage.getItem('tasks')
@@ -10,12 +11,17 @@ export const TaskContext = createContext();
 export const TaskProvider = props => {
     const intervalRef = useRef();
     const [ tasks, setTasks ] = useState(storedTasks);
+    const getColor = () => {
+        const random = Math.ceil(Math.random() * 7);
+        return COLORS[random];
+    }
     const getModelTask = () => ({
         id: v4(),
         state: 'non-started',
         parent: false,
         start: false,
         stop: false,
+        color: getColor(),
         hours: '00',
         mins: '00',
         secs: '00',
