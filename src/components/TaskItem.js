@@ -42,6 +42,7 @@ const styles = theme => ({
         marginLeft: 40
     },
     divider: {
+        marginLeft: 10,
         borderRadius: 50,
         backgroundColor: 'green',
         width:7 
