@@ -1,6 +1,6 @@
 import React,{ useState, createContext, useRef, useEffect } from 'react';
 import {v4} from 'uuid';
-import { COLORS } from './Settings';
+import { APP_TITLE, COLORS } from './Settings';
 import moment from 'moment';
 
 const storedString = localStorage.getItem('tasks')
@@ -64,13 +64,19 @@ export const TaskProvider = props => {
         } 
     }
 
+    const updateAppTitle = (hours, mins, secs) => {
+        document.title = hours > 0
+                            ? `${hours} hour`
+                            : mins > 0 ? `${mins} min ${secs} sec` : `${secs} sec`;
+    }
+
     const getPaddedTime = totalSeconds => {
         const addPadding = value => value.toString().length === 1 ? `0${value}` : value;
         const hours = Math.floor(totalSeconds / 3600);
         const remainingSecs = totalSeconds - hours * 3600;
         const minutes = Math.floor(remainingSecs / 60);
         const seconds = remainingSecs - minutes * 60;
-
+        updateAppTitle(hours, minutes, seconds);
         return { 
             hours: addPadding(hours),
             mins: addPadding(minutes),
@@ -115,6 +121,7 @@ export const TaskProvider = props => {
             ...getPaddedTime(runningTask.totalSeconds),
             state: 'stopped'
         })
+        document.title = APP_TITLE;
         clearInterval(interval)
     }
     const properties = {

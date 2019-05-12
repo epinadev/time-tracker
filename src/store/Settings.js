@@ -1,3 +1,4 @@
+export const APP_TITLE= 'Time Tracker';
 export const TaskHelper = {
     states : {
         PENDING: 'pending',
