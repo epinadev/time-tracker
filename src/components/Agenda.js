@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import TaskItem from './TaskItem';
 import AgendaHeader from './AgendaHeader';
 import { TaskContext } from "../store/TaskContext";
+import { DialogProvider } from "../store/DialogContext";
+import TaskDialog from "./TaskDialog";
 
 const styles = theme => ({
     content : {
@@ -28,10 +30,13 @@ function Agenda({ classes }) {
 
     return(
         <Grid item xs={9} className={classes.content}>
-            <AgendaHeader/>
-            <div className={classes.tasksContainer}>
-                { tasks.map(task => <TaskItem task={task} key={task.id}/>) }
-            </div>
+            <DialogProvider>
+                <AgendaHeader/>
+                <div className={classes.tasksContainer}>
+                    { tasks.map(task => <TaskItem task={task} key={task.id}/>) }
+                </div>
+                <TaskDialog/>
+            </DialogProvider>
         </Grid>
     ) 
 }

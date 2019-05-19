@@ -8,6 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Stop from "@material-ui/icons/Stop";
 import { TaskContext } from "../store/TaskContext";
+import { DialogContext } from "../store/DialogContext";
 
 const styles = theme => ({
     controls: {
@@ -32,12 +33,14 @@ function TaskItemControls(props) {
         duplicateTask, 
         startRunningTask, 
         stopRunningTask } = useContext(TaskContext);
+    const { setDialog } = useContext(DialogContext);
     const [ menuAnchor, setMenu ] = useState(null);
     const handleMenu = e => setMenu(e.currentTarget);
     const handleClose  = () => setMenu(null);
     const handleReStart = () => duplicateTask(task.id);
     const handleStart = () => startRunningTask(task);
     const handleStop = () => stopRunningTask();
+    const handleDetails = () => setDialog({ open: true, title: 'Details', taskId: task.id})
     const handleDelete = () => {
         deleteTask(task);
         setMenu(null);
@@ -93,6 +96,7 @@ function TaskItemControls(props) {
                 open={Boolean(menuAnchor)}
                 onClose={handleClose}
             >
+                <MenuItem onClick={handleDetails}>Edit</MenuItem>
                 <MenuItem onClick={handleDelete}>Delete</MenuItem>
             </Menu>
         </div>
