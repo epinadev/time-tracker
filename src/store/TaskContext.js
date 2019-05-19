@@ -34,14 +34,23 @@ export const TaskProvider = props => {
     const addTask = task => {
         setTasks(prevTasks => {
             const ntask = task ? {...task } : getModelTask();
-            localStorage.setItem('tasks', JSON.stringify([...prevTasks, ntask]))
-            return [...prevTasks, ntask]
+            localStorage.setItem('tasks', JSON.stringify([ntask, ...prevTasks]))
+            return [ntask, ...prevTasks]
         })
     } 
     const editTask = task => {
         setTasks(prevTasks => {
             const index = prevTasks.findIndex(t => t.id === task.id);
             prevTasks[index] = task;
+            if (task.state !== 'running') {
+                prevTasks.sort((a,b) => {
+                    const aStart = new Date(a.start ? a.start : '1970');
+                    const bStart = new Date(b.start ? b.start : '1970');
+                    if (moment(aStart) > moment(bStart)) return 1;
+                    if (moment(aStart) < moment(bStart)) return -1;
+                    return 0;
+                })
+            } 
             localStorage.setItem('tasks', JSON.stringify(prevTasks))
             return [...prevTasks];
         })

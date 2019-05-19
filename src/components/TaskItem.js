@@ -60,14 +60,13 @@ const styles = theme => ({
 function TaskItem(props) {
     const { task, classes } = props;
     const { editTask } = useContext(TaskContext);
-    const startTime = task.start ? moment(task.start).format('HH:mm') : '00:00';
-    const stopTime = task.stop ? moment(task.stop).format('HH:mm') : '00:00';
+    const startTime = task.start ? moment(task.start).format('HH:mm') : '';
+    const stopTime = task.stop ? moment(task.stop).format('HH:mm') : '';
     const debouncedEdit = _.debounce((key, value) => editTask({ ...task, [key]: value }), 1000)
     const handleCategory = event => {
         const { value } = event.currentTarget
         debouncedEdit('category', value);
     }
-
     const handleDescription = event => {
         const { value } = event.currentTarget
         debouncedEdit('description', value);
