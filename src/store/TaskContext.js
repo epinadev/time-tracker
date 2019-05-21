@@ -44,10 +44,10 @@ export const TaskProvider = props => {
             prevTasks[index] = task;
             if (task.state !== 'running') {
                 prevTasks.sort((a,b) => {
-                    const aStart = new Date(a.start ? a.start : '1970');
-                    const bStart = new Date(b.start ? b.start : '1970');
-                    if (moment(aStart) > moment(bStart)) return 1;
-                    if (moment(aStart) < moment(bStart)) return -1;
+                    const aStart = new Date(a.start ? a.start : '2970');
+                    const bStart = new Date(b.start ? b.start : '2970');
+                    if (moment(aStart) < moment(bStart)) return 1;
+                    if (moment(aStart) > moment(bStart)) return -1;
                     return 0;
                 })
             } 
